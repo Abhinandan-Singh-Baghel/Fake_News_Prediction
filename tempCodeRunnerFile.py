@@ -1,1 +1,5 @@
-print(stopwords.words('english'))
+
+# model = LogisticRegression()
+
+# model.fit(Xtrain, Ytrain)
+

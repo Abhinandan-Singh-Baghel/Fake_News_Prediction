@@ -31,11 +31,11 @@ print(news_dataset.isnull().sum())
 #seperating data and labels
 
 X = news_dataset.drop(columns = 'label')
-Y = df['label']
+Y = news_dataset['label']
 
 
 
-Stemming 
+#Stemming 
 
 stem = PorterStemmer()
 
@@ -45,6 +45,50 @@ def stemming(text):
     stem_text = stem_text.lower()
     stem_text = stem_text.split()
     stem_text = [stem.stem(word) for word in stem_text if not word in stopwords.words('english')]
+    stem_text = ' '.join(stem_text)    
+    return stem_text
+
+
+news_dataset['text'] = news_dataset['text'].apply(stemming)
+
+x = news_dataset['text'].values
+
+
+# print('hello there')
+
+
+# print(x.head())
+y = news_dataset['label'].values
+
+
+#Converting textual data into numeric data
+
+
+vect = TfidfVectorizer()
+vect.fit(x)
+
+X = vect.transform(x)
+
+
+# Spliting into X and Y
+
+Xtrain, Xtest, Ytrain, Ytest = train_test_split(X,y,test_size=0.2, random_state=2)
+
+
+#Model Training
+
+model = LogisticRegression()
+
+model.fit(Xtrain, Ytrain)
+
+# Evaluation
+
+xtrain = model.predict(Xtrain)
+print(xtrain)
+
+
+Acc = accuracy_score(xtrain, Ytrain)
+print(Acc)
 
 
 
