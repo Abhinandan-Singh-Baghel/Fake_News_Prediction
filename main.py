@@ -91,6 +91,31 @@ Acc = accuracy_score(xtrain, Ytrain)
 print(Acc)
 
 
+# Evaluation on test data
+
+xtest = model.predict(Xtest)
+
+print(xtest)
+
+Acc = accuracy_score(xtest, Ytest)
+
+print(Acc)
+
+
+# let's test out the model with real time data
+
+X_news = Xtest[17]
+predict = model.predict(X_news)
+
+print(predict)
+
+if predict[0] == 'REAL':
+    print('the news is real')
+else:
+    print('the news is fake')
+
+
+
 
 
 
